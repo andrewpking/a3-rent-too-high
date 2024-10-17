@@ -54,3 +54,5 @@ Some features that would be nice to support in the vega-lite version of this vis
 - Tooltip with detailed stats.
 - Bar graph to show more detailed stats.
 - Choose which statistic to visualize with a menu.
+
+We look forward to sharing the results of our labor!
