@@ -1,6 +1,6 @@
 # Rent Too High - CSE 442
 
-Authors: Drew King, Dan Sutton, Joey Kreuger, Jack Rosenbloom
+Authors: [Drew King](https://www.github.com/andrewpking/), [Dan Sutton](https://github.com/suttodan), [Joey Kreuger](https://github.com/jkru3), [Jack Rosenbloom](https://github.com/jackcodesstuff)
 
 ## Dataset
 
