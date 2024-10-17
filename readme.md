@@ -9,7 +9,13 @@ Authors: [Drew King](https://www.github.com/andrewpking/), [Dan Sutton](https://
 
 ## Problem
 
-The rent is too high. In fact it is so high that ZORI data only captures the average from the 35th to 65th percentile of rents, so it generally skews down from the true average rent. It is likely they have a vested interest in hiding the true average rent. Despite this limitation, a brief analysis using R and creating a tableau dashboard has shown that rents are outpacing wages as a proportion in most areas.
+### Skewed Data
+
+The rent is too high. In fact it is so high that Zillow changed their index from the [ZRI](https://www.zillow.com/research/zillow-rent-index-methodology-2393/) to [ZORI, which only captures the average from the 35th to 65th percentile](https://www.zillow.com/research/methodology-zori-repeat-rent-27092/#:~:text=Beginning%20in%20May%202020%20with%20publication%20of,that%20other%20measures%20of%20rental%20prices%20cannot.) of rents. This new methodology generally skews below the true average rent. It is likely they have a vested interest in hiding the real cost of housing. Despite this limitation, a brief analysis using R and creating a tableau dashboard has shown that rents are outpacing wages as a proportion in most areas.
+
+### Social Costs
+
+If someone is spending more than 30% of their income on rent they are considered [rent burdened](https://www.huduser.gov/portal/pdredge/pdr_edge_featd_article_092214.html). The number of places where people are rent burdened is rising, with [nearly 50% of households being rent burdened in 2023](https://www.census.gov/newsroom/press-releases/2024/renter-households-cost-burdened-race.html#:~:text=September%2012%2C%202024-,Nearly%20Half%20of%20Renter%20Households%20Are,Burdened%2C%20Proportions%20Differ%20by%20Race&text=SEPT.,whom%20rent%20burden%20is%20calculated.). This project seeks to highlight the inequity of the housing market that is fueling the cost of living crisis in the United States.
 
 ## Proposed Solution
 
