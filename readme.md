@@ -26,7 +26,7 @@ An interactive data visualization written in Vega-Lite that allows people to exp
 Drew found data in non-normal forms. They are familiar with R so they wrote an [R script](https://github.com/andrewpking/a3-rent-too-high/blob/master/data/Data%20Cleaning%20Rent.R) that pivots and joins two tables:
 
 - Incomes by county over time: [CAINC1__ALL_AREAS_1969_2021.csv](https://github.com/andrewpking/a3-rent-too-high/blob/master/data/CAINC1__ALL_AREAS_1969_2021.csv)
-- Rents by region over time: [city_zori_all_homes.csv](https://github.com/andrewpking/a3-rent-too-high/blob/master/city_zori_all_homes.csv)
+- Rents by region over time: [city_zori_all_homes.csv](https://github.com/andrewpking/a3-rent-too-high/blob/master/data/city_zori_all_homes.csv)
 
 This script then calculates:
 
