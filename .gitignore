@@ -1,2 +1,14 @@
 *.RProj
-.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rapp.history
+.Renviron
+.Renviron.site
+.Rprofile
+.Rprofile.site
+.Rnw
+.Rmd
+*.Rcheck/
+*.Rcache/
+*.Rproj.user/
