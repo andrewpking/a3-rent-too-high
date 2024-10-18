@@ -1,5 +1,6 @@
 # Load necessary libraries
 library(tidyverse)
+library(tidygeocoder) # You may have to install this with devtools.
 
 # Load the rent_data
 zori_all_homes <- read_csv("city_zori_all_homes.csv")
@@ -96,6 +97,10 @@ rent_and_income <- county_info %>%
       TRUE ~ `Rent as Percent Income` - lag(`Rent as Percent Income`)
     )
   )
+
+coordinates <- rent_and_income %>%
+  geocode(county = County, state = State, method = 'osm')
+  
 
 # Data validation
 single_entries <- rent_and_income %>% group_by(State, County) %>% filter(n() == 1)
