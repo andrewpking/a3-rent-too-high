@@ -12,3 +12,4 @@
 *.Rcheck/
 *.Rcache/
 *.Rproj.user/
+.Rproj.user
