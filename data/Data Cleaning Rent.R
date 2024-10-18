@@ -100,13 +100,10 @@ rent_and_income <- county_info %>%
 
 coordinates <- rent_and_income %>%
   geocode(county = County, state = State, method = 'osm')
-  
-cleaned_rent_data <- coordinates %>%
-  select(-GeoFIPS)
 
 # Data validation
 single_entries <- rent_and_income %>% group_by(State, County) %>% filter(n() == 1)
 start_entries <- rent_and_income %>% group_by(State, County) %>% filter(min(Year) == Year)
 
 # Save the joined tables to a new CSV file
-write_csv(cleaned_rent_data, "rent_and_income.csv")
+write_csv(coordinates, "data/rent_and_income.csv")
