@@ -3,8 +3,8 @@ library(tidyverse)
 library(tidygeocoder) # You may have to install this with devtools.
 
 # Load the rent_data
-zori_all_homes <- read_csv("city_zori_all_homes.csv")
-income_per_capita <- read_csv("CAINC1__ALL_AREAS_1969_2021.csv")
+zori_all_homes <- read_csv("data/city_zori_all_homes.csv")
+income_per_capita <- read_csv("data/CAINC1__ALL_AREAS_1969_2021.csv")
 
 # Normalize the rent_data
 pivot_zori <- zori_all_homes %>%
