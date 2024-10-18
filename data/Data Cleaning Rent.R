@@ -1,5 +1,6 @@
 # Load necessary libraries
 library(tidyverse)
+library(tidygeocoder) # You may have to install this with devtools.
 
 # Load the rent_data
 zori_all_homes <- read_csv("city_zori_all_homes.csv")
@@ -97,9 +98,15 @@ rent_and_income <- county_info %>%
     )
   )
 
+coordinates <- rent_and_income %>%
+  geocode(county = County, state = State, method = 'osm')
+  
+cleaned_rent_data <- coordinates %>%
+  select(-GeoFIPS)
+
 # Data validation
 single_entries <- rent_and_income %>% group_by(State, County) %>% filter(n() == 1)
 start_entries <- rent_and_income %>% group_by(State, County) %>% filter(min(Year) == Year)
 
 # Save the joined tables to a new CSV file
-write_csv(rent_and_income, "rent_and_income.csv")
+write_csv(cleaned_rent_data, "rent_and_income.csv")
