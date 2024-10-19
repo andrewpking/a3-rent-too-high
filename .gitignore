@@ -13,3 +13,4 @@
 *.Rcache/
 *.Rproj.user/
 .Rproj.user
+.vscode/settings.json
