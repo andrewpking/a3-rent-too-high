@@ -65,7 +65,7 @@ county_info <- pivot_income_per_capita %>%
   mutate(County = str_remove(County, " County"))
 
 rent_and_income <- county_info %>%
-  inner_join(pivot_zori) %>%
+  left_join(pivot_zori) %>%
   mutate(
     `Income per capita` = as.numeric(`Income per capita`),
     `Population` = as.numeric(`Population`),
