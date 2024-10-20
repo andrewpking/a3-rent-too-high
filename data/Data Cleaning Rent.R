@@ -33,7 +33,10 @@ pivot_income_per_capita <- income_per_capita %>%
   select(GeoFIPS, Year, GeoName, `Income per capita`) %>%
   separate(GeoName, into = c("County", "State"), sep = ", ", remove = TRUE) %>%
   filter(!is.na(State)) %>%
-  mutate(Year = as.numeric(Year))
+  mutate(Year = as.numeric(Year)) %>% 
+  mutate(
+    State =  str_remove_all(State, "\\*")
+  )
 
 pivot_population <- income_per_capita %>%
   filter(str_detect(Description, "1/")) %>%
@@ -45,7 +48,10 @@ pivot_population <- income_per_capita %>%
   select(GeoFIPS, Year, GeoName, Population) %>%
   separate(GeoName, into = c("County", "State"), sep = ", ", remove = TRUE) %>%
   filter(!is.na(State)) %>%
-  mutate(Year = as.numeric(Year))
+  mutate(Year = as.numeric(Year)) %>%
+  mutate(
+    State =  str_remove_all(State, "\\*")
+  )
 
 pivot_gross_income <- income_per_capita %>%
   filter(str_detect(Description, "(thousands of dollars)")) %>%
@@ -57,7 +63,10 @@ pivot_gross_income <- income_per_capita %>%
   select(GeoFIPS, Year, GeoName, `Gross Income`) %>%
   separate(GeoName, into = c("County", "State"), sep = ", ", remove = TRUE) %>%
   filter(!is.na(State)) %>%
-  mutate(Year = as.numeric(Year))
+  mutate(Year = as.numeric(Year)) %>%
+  mutate(
+    State =  str_remove_all(State, "\\*")
+  )
 
 county_info <- pivot_income_per_capita %>%
   inner_join(pivot_population) %>%
@@ -98,12 +107,9 @@ rent_and_income <- county_info %>%
     )
   )
 
-coordinates <- rent_and_income %>%
-  geocode(county = County, state = State, method = 'osm')
-
 # Data validation
 single_entries <- rent_and_income %>% group_by(State, County) %>% filter(n() == 1)
 start_entries <- rent_and_income %>% group_by(State, County) %>% filter(min(Year) == Year)
 
 # Save the joined tables to a new CSV file
-write_csv(coordinates, "data/rent_and_income.csv")
+write_csv(rent_and_income, "data/rent_and_income.csv")
