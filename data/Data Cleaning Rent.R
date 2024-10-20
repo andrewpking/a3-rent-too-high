@@ -113,3 +113,42 @@ start_entries <- rent_and_income %>% group_by(State, County) %>% filter(min(Year
 
 # Save the joined tables to a new CSV file
 write_csv(rent_and_income, "data/rent_and_income.csv")
+
+
+# Now lets take a weighted average for each state by year
+states_rent <- rent_and_income %>%
+  group_by(Year, State) %>%
+  summarise(
+    `GeoFIPS` = first(str_replace(GeoFIPS, "\\d{3}$", "000")), # Replace the last 3 of 5 digits with zeroes
+    `Population` = sum(Population),
+    `Avg Rent` = sum(`Avg Rent` * Population, na.rm = TRUE) / sum(Population, na.rm = TRUE),
+    `Income per capita` = sum(`Income per capita` * Population, na.rm = TRUE) / sum(Population, na.rm = TRUE),
+    ) %>%
+  filter(State %in% state.abb) %>%
+  mutate(`Avg Rent` = case_when(`Avg Rent` == 0 ~ NA_real_, TRUE ~ `Avg Rent`)) %>%
+  mutate(`Rent as Percent Income` = (`Avg Rent` * 12) / `Income per capita` * 100) %>%
+  group_by(State) %>%
+  arrange(State, Year) %>%
+  mutate(
+    `Rent Change YOY` = case_when(
+      n() == 1 ~ NA_real_,  # If the county has only one row, NA
+      min(Year) == Year ~ NA_real_,  # If it's the first year for the county, NA
+      TRUE ~ `Avg Rent` - lag(`Avg Rent`)  # Otherwise, calculate the difference
+    )
+  )%>%
+  mutate(
+    `Percent Rent Change YOY` = case_when(
+      n() == 1 ~ NA_real_,
+      min(Year) == Year ~ NA_real_,
+      TRUE ~ (`Rent Change YOY` / lag(`Avg Rent`)) * 100
+    )
+  ) %>%
+  mutate(
+    `Rent as Percent Income Change YOY` = case_when(
+      n() == 1 ~ NA_real_,
+      min(Year) == Year ~ NA_real_,
+      TRUE ~ `Rent as Percent Income` - lag(`Rent as Percent Income`)
+    )
+  )
+  
+write_csv(states_rent, "data/rent_and_income_state.csv")
