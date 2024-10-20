@@ -117,12 +117,13 @@ write_csv(rent_and_income, "data/rent_and_income.csv")
 
 # Now lets take a weighted average for each state by year
 states_rent <- rent_and_income %>%
+  filter(!is.na(`Avg Rent`)) %>%
   group_by(Year, State) %>%
   summarise(
     `GeoFIPS` = first(str_replace(GeoFIPS, "\\d{3}$", "000")), # Replace the last 3 of 5 digits with zeroes
-    `Population` = sum(Population),
     `Avg Rent` = sum(`Avg Rent` * Population, na.rm = TRUE) / sum(Population, na.rm = TRUE),
     `Income per capita` = sum(`Income per capita` * Population, na.rm = TRUE) / sum(Population, na.rm = TRUE),
+    `Population` = sum(Population)
     ) %>%
   filter(State %in% state.abb) %>%
   mutate(`Avg Rent` = case_when(`Avg Rent` == 0 ~ NA_real_, TRUE ~ `Avg Rent`)) %>%
